@@ -3,6 +3,10 @@ name = "arroyo-df"
 version = "0.13.0-dev"
 edition = "2021"
 
+[features]
+default = []
+vendored = ["arroyo-connectors/vendored"]
+
 
 [dependencies]
 arroyo-types = { path = "../arroyo-types" }

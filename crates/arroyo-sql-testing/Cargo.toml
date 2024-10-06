@@ -6,7 +6,7 @@ edition = "2021"
 [features]
 default = ["integration-tests"]
 integration-tests = []
-
+vendored = ["arroyo-df/vendored", "arroyo-worker/vendored"]
 
 [dependencies]
 syn = "2.0"

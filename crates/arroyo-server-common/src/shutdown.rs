@@ -167,9 +167,12 @@ impl Shutdown {
                 loop {
                     let ctrl_c = tokio::signal::ctrl_c();
                     let signal = async {
+                        #[cfg(unix)]
                         let mut os_signal = tokio::signal::unix::signal(
                             tokio::signal::unix::SignalKind::terminate(),
                         )?;
+                        #[cfg(windows)]
+                        let mut os_signal = tokio::signal::windows::ctrl_shutdown()?;
                         os_signal.recv().await;
                         io::Result::Ok(())
                     };

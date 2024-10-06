@@ -6,6 +6,7 @@ license = "MIT OR Apache-2.0"
 
 [features]
 default = []
+vendored = ["arroyo-connectors/vendored", "arroyo-df/vendored"]
 
 [dependencies]
 arroyo-types = { path = "../arroyo-types" }

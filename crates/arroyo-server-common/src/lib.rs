@@ -7,6 +7,7 @@ use arroyo_types::POSTHOG_KEY;
 use axum::body::Bytes;
 use axum::extract::State;
 use axum::http::StatusCode;
+#[cfg(not(windows))]
 use axum::response::IntoResponse;
 use axum::routing::get;
 use axum::Router;
@@ -252,6 +253,7 @@ async fn details<'a>(State(state): State<Arc<AdminState>>) -> String {
     .unwrap()
 }
 
+#[cfg(not(windows))]
 pub async fn handle_get_heap() -> Result<impl IntoResponse, (StatusCode, String)> {
     let mut prof_ctl = jemalloc_pprof::PROF_CTL.as_ref().unwrap().lock().await;
     require_profiling_activated(&prof_ctl)?;
@@ -261,6 +263,7 @@ pub async fn handle_get_heap() -> Result<impl IntoResponse, (StatusCode, String)
     Ok(pprof)
 }
 
+#[cfg(not(windows))]
 /// Checks whether jemalloc profiling is activated an returns an error response if not.
 fn require_profiling_activated(
     prof_ctl: &jemalloc_pprof::JemallocProfCtl,
@@ -284,15 +287,17 @@ pub async fn start_admin_server(service: &str) -> anyhow::Result<()> {
     let state = Arc::new(AdminState {
         name: format!("arroyo-{}", service),
     });
-    let app = Router::new()
+    let router = Router::new()
         .route("/status", get(status))
         .route("/name", get(root))
         .route("/metrics", get(metrics))
         .route("/metrics.pb", get(metrics_proto))
         .route("/details", get(details))
-        .route("/config", get(config_route))
-        .route("/debug/pprof/heap", get(handle_get_heap))
-        .with_state(state);
+        .route("/config", get(config_route));
+
+    #[cfg(not(windows))]
+    let router = router.route("/debug/pprof/heap", get(handle_get_heap));
+    let app = router.with_state(state);
 
     let addr = SocketAddr::new(addr, port);
 

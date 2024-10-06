@@ -5,6 +5,7 @@ edition = "2021"
 
 [features]
 default = []
+vendored = ["arroyo-worker/vendored"]
 
 [dependencies]
 arroyo-types = { path = "../arroyo-types" }

@@ -8,6 +8,7 @@ to_string_trait_impl = "allow"
 
 [features]
 default = []
+vendored = ["sasl2-sys/vendored", "rdkafka/ssl-vendored"]
 
 [dependencies]
 arroyo-types = { path = "../arroyo-types" }
@@ -50,9 +51,9 @@ regex = "1"
 ##########################
 
 # Kafka
-rdkafka = { version = "0.33", features = ["cmake-build", "tracing", "sasl", "ssl-vendored"] }
+rdkafka = { version = "0.33", features = ["cmake-build", "tracing", "sasl"] }
 rdkafka-sys = "4.5.0"
-sasl2-sys = { version = "0.1.6", features = ["vendored"] }
+sasl2-sys = { version = "0.1.6" }
 
 # SSE
 eventsource-client = "0.12.0"

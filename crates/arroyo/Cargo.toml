@@ -6,6 +6,7 @@ edition = "2021"
 [features]
 profiling = ["tikv-jemallocator/profiling"]
 python = ["arroyo-udf-python/python-enabled"]
+vendored = ["arroyo-connectors/vendored", "arroyo-api/vendored", "arroyo-worker/vendored", "arroyo-controller/vendored"]
 
 [dependencies]
 arroyo-types = { path ="../arroyo-types" }
