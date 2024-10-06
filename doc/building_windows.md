@@ -1,0 +1,17 @@
+# Building on Windows
+- Use a developer PowerShell
+- Install the following packages:
+  - `winget install --id OpenJS.NodeJS`
+  - `winget install --id PostgreSQL.PostgreSQL.16`
+  - `winget install --id Google.Protobuf`
+  - `winget install --id pnpm.pnpm`
+- Install vcpkg and the following packages:
+  - `cyrus-sasl`
+  - `openssl`
+- Install pnpm
+- Set up the following environment variables:
+  - `VCPKG_ROOT`
+  - `VCPKGRS_DYNAMIC=1`
+  - `SASL2_INCLUDE_DIR="${env:VCPKG_ROOT}\installed\x64-windows\include"`
+  - `SASL2_LIB_DIR="${env:VCPKG_ROOT}\installed\x64-windows\lib"`
+- Now you're ready for `cargo build`
