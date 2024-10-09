@@ -15,3 +15,13 @@
   - `SASL2_INCLUDE_DIR="${env:VCPKG_ROOT}\installed\x64-windows\include"`
   - `SASL2_LIB_DIR="${env:VCPKG_ROOT}\installed\x64-windows\lib"`
 - Now you're ready for `cargo build`
+- Once you're done, you need to run the following in `webui/`:
+  ```
+  pnpm fetch
+  pnpm install
+  pnpm build
+  ```
+- Now you're good to launch!
+  ```
+  cargo run --bin arroyo -- cluster
+  ```
